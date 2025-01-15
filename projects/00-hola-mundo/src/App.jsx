@@ -3,24 +3,45 @@ import { TwitterFollowCard } from './TwitterFollowCard'
 
 export function App () {
 
+
+    const users = [
+        {
+            userName : "ricaherlo",
+            name:"Alberto Ricardo Herrera L",
+            initialFollowing : true 
+        },
+        {
+            userName : "Claudiashein",
+            name:"Claudia Sheimbaun",
+            initialFollowing : false 
+        },
+        {
+            userName : "porktendencia",
+            name:"¿Por qué es tendencia?",
+            initialFollowing : false 
+        },
+        {
+            userName : "OutOfContextMex",
+            name:"Out Of Context México",
+            initialFollowing : false 
+        },
+    ]
+
     return (
         <div className='App'>
-            <TwitterFollowCard
-                userName = "ricaherlo"
-                name="Alberto Ricardo Herrera L"
-            />
-            <TwitterFollowCard 
-                userName = "Claudiashein"
-                name="Claudia Sheimbaun"
-            />
-            <TwitterFollowCard 
-                userName = "porktendencia"
-                name="¿Por qué es tendencia?"
-            />
-            <TwitterFollowCard 
-                userName = "OutOfContextMex"
-                name="Out Of Context México"
-            />
+            {
+                users.map(user => {
+                    const {userName, name, initialFollowing} = user
+                    return(
+                        <TwitterFollowCard 
+                            key={userName}
+                            userName={userName} 
+                            initialFollowing = {initialFollowing}
+                            name = {name}
+                        />
+                    )
+                })
+            }
         </div>
     )
 }
