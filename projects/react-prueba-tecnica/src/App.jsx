@@ -1,27 +1,15 @@
-import React, { useEffect, useState } from 'react'
 import './App.css'
-import { getRandomFact } from './services/facts'
+import React from 'react'
 import { useCatImage } from './hooks/useCatImage'
-
-const CAT_ENDPOINT_IMAGE_URL = `https://cataas.com/cat/says/`
-
-
+import { useCatFact } from './hooks/useCatFact'
+import { Otro } from './components/Otro'
 
 export function App () {
-    const [fact, setFact] = useState()
+    const {fact, refreshRandomFact} = useCatFact()
     const { imgUrl } = useCatImage({ fact: fact })
 
-    useEffect(() => {
-        const fetchFact = async () => {
-            const newFact = await getRandomFact()
-            setFact(newFact)
-        }
-        fetchFact()
-    }, [])
-
     const handleClick = async () => {
-            const newFact = await getRandomFact()
-            setFact(newFact)
+            refreshRandomFact()
     }
     
 
@@ -33,8 +21,11 @@ export function App () {
             <section>
                 {fact && <p>{fact}</p>}
                 {imgUrl && 
-                <img src={`${CAT_ENDPOINT_IMAGE_URL}${imgUrl}`} alt={`Image extracted using the three words from ${fact}`}></img>}
+                <img src={imgUrl} alt={`Image extracted using the three words from ${fact}`}></img>}
             </section>
+            <Otro />
+            <Otro />
+            <Otro />
         </main>
     )
 }

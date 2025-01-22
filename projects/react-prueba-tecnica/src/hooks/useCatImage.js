@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react"
 
+const CAT_ENDPOINT_IMAGE_URL = `https://cataas.com/cat/says/`
+
+
 export function useCatImage({ fact }) {
     const [imgUrl, setImgUrl] = useState(undefined)
 
@@ -18,6 +21,6 @@ export function useCatImage({ fact }) {
         })
     }, [fact])
     console.log(imgUrl+'')
-    return { imgUrl }
+    return { imgUrl: `${CAT_ENDPOINT_IMAGE_URL}${imgUrl}` }
     
 } // Return imgUrl: 'https://catass...'
