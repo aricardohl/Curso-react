@@ -5,13 +5,12 @@ API a usar:
 - http://www.omdbapi.com/
 - API_KEY: 6da604b3
 
-
-
 Requerimientos:
 
 - Necesita mostrar un input para hacer la búsqueda de la pélicula y un botón para buscar.
 - Lista las películas encontradas y muestra el título, año y poster.
-- HAz que las peliculas se muestren en un grid responsive.
+- Haz que las peliculas se muestren en un grid responsive.
+- Hacer el fetching de datos a la API
 
 Primera iteración:
 
