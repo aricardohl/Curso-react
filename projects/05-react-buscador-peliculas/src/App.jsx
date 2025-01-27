@@ -5,36 +5,46 @@ import { useMovies } from "./hooks/useMovies";
 import { useState } from "react";
 import { useEffect } from "react";
 
-function App() {
-  const [query, setQuery] = useState('')
+function useSearch() {
+  const [search, updateSearch] = useState('')
   const [error, setError] = useState(null)
+  const firstInput = useRef(true)
 
-  const { movies } = useMovies()
-
-  const inputRef = useRef()
-
-  // Validar busqueda controlada con useState y useEffect
   useEffect(() => {
-    if (query === '') {
+    if(firstInput.current) {
+      firstInput.current = search === ''
+      return
+    }
+    if (search === '') {
       setError('No se puede buscar una pelicula vacia')
       return
     }
-    if(query.match(/^\d+$/)) {
+    if(search.match(/^\d+$/)) {
       setError('No se puede buscar una pelicula con un numero')
       return
     }
-    if (query.length < 3) {
+    if (search.length < 3) {
       setError('La busqueda debe tener al menos 3 caracteres')
       return
     }
 
     setError(null)
-  }, [query])
+  }, [search])
+
+  return { search, updateSearch, error}
+}
+
+function App() {
+
+  const { movies } = useMovies()
+
+  const { search, updateSearch, error } = useSearch()
+
+  const inputRef = useRef()
 
   const handleChange = (event) => {
     const newQuery = event.target.value 
-    if(newQuery.startsWith(' ')) return
-    setQuery(newQuery)
+    updateSearch(newQuery)
   }
 
   const handleSubmit = (event) => {
@@ -56,6 +66,7 @@ function App() {
         <form className="form" onSubmit={handleSubmit}>
           <input 
           onChange={handleChange} 
+          value={search}
           // name='query' ref={inputRef} 
           placeholder="Star Wars, Matrix, Dune..." />
           <button type="submit">Buscar</button>
